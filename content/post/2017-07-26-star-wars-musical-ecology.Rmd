@@ -54,7 +54,7 @@ Toy_clust <- hclust(Toy_dist, "ward.D")
 
 If we plot these relationships as a tree (after some statistical wankery) we see that Donner Pass and Sierraville appear close together with Davis far apart from them. 
 
-```{r echo = FALSE, fig.cap = "Cluster plot of the toy example referred to above."}
+```{r Toy, echo = FALSE, fig.cap = "Cluster plot of the toy example referred to above."}
 plot(Toy_clust, main = "", xlab = "", sub = "")
 ```
 
@@ -108,7 +108,7 @@ SW_clust <- hclust(SW_dist, method = "ward.D")
 
 A prediction on the clustering analysis. The three original trilogy films will cluster together and the pre-quels will cluster together. I think that TFA will be more similar, musically, to the original trilogy than the pre-quels. 
 
-```{r echo = FALSE, fig.cap = "Clustering of the Star Wars films based on the their musical theme counts."}
+```{r SWclust, echo = FALSE, fig.cap = "Clustering of the Star Wars films based on the their musical theme counts."}
 plot(SW_clust, main = "", xlab = "", sub = "")
 ```
 
@@ -138,8 +138,8 @@ EVIIa <- D.iter.q(data = SW_data[7, ], level = "alpha", q = 5)
 
 Here we count the number of different themes and consider how many different themes there are if we weight "rarity." 
 
-```{r echo = FALSE, fig.cap = "Plot of the effective number of themes by Star Wars film"}
-plot(x = seq(from = 0, to = 5, length.out = 4), y = seq(from = 0, to = 16, length.out = 4), xaxt = "n", type = "n", ylab = expression(paste(italic(alpha))), las = 1, xlab = "", main = "")
+```{r q, echo = FALSE, fig.cap = "Plot of the effective number of themes by Star Wars film"}
+plot(x = seq(from = 0, to = 5, length.out = 4), y = seq(from = 0, to = 16, length.out = 4), xaxt = "n", type = "n", ylab = expression(paste(italic(alpha))), las = 1, xlab = "q", main = "")
 axis(1, at = c(0, 1, 2, 3, 4, 5))
 
 # EI
@@ -188,7 +188,7 @@ SW_nmds <- metaMDS(SW_dist, trace = FALSE)
 stressplot(SW_nmds, SW_dist)
 ```
 
-```{r echo = FALSE, warning = FALSE, fig.cap = "NMDS Ordination plot of the 7 Star Wars films."}
+```{r ordination, echo = FALSE, warning = FALSE, fig.cap = "NMDS Ordination plot of the 7 Star Wars films."}
 plot(SW_nmds, type = "t", las = 1, cex = 1.2)
 ```
 
