@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R on Pizza, Beer and Science</title>
+    <link>/categories/r/</link>
+    <description>Recent content in R on Pizza, Beer and Science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 26 Jul 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Star Wars Musical Ecology</title>
+      <link>/2017/07/26/star-wars-musical-ecology/</link>
+      <pubDate>Wed, 26 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/07/26/star-wars-musical-ecology/</guid>
+      <description>Introduction Star Wars Oxygen Species diversity Star Wars musical ecology  The data Analysis Clustering Jost’s D NMDS  Conclusions   Introduction Star Wars Oxygen I love Star Wars. I love the story telling and fantasy, but I especially love the music. John Williams is amazing. There was a podcast out there called Star Wars Oxygen that covered the music of Star Wars and it was one of my favorite podcasts of all time.</description>
+    </item>
+    
+  </channel>
+</rss>

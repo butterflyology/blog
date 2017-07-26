@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pizza, Beer and Science</title>
+    <link>/</link>
+    <description>Recent content on Pizza, Beer and Science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 26 Jul 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Star Wars Musical Ecology</title>
+      <link>/2017/07/26/star-wars-musical-ecology/</link>
+      <pubDate>Wed, 26 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/07/26/star-wars-musical-ecology/</guid>
+      <description>Introduction Star Wars Oxygen Species diversity Star Wars musical ecology  The data Analysis Clustering Jost’s D NMDS  Conclusions   Introduction Star Wars Oxygen I love Star Wars. I love the story telling and fantasy, but I especially love the music. John Williams is amazing. There was a podcast out there called Star Wars Oxygen that covered the music of Star Wars and it was one of my favorite podcasts of all time.</description>
+    </item>
+    
+    <item>
+      <title>About me</title>
+      <link>/about/</link>
+      <pubDate>Sun, 26 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/about/</guid>
+      <description>This is the rarely updated blog of Chris Hamm, artisinal data stylist for the Monsanto Company.
+This is a &amp;ldquo;hello world&amp;rdquo; example website for the blogdown package. The theme was forked from @jrutheiser/hugo-lithium-theme and modified by Yihui Xie.</description>
+    </item>
+    
+  </channel>
+</rss>

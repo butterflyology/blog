@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.25.1" />
+
+
+<title>Star Wars Musical Ecology - Pizza, Beer and Science</title>
+<meta property="og:title" content="Star Wars Musical Ecology - Pizza, Beer and Science">
+
+
+
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="../../../../css/fonts.css" media="all">
+<link rel="stylesheet" href="../../../../css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="../../../../" class="nav-logo">
+    <img src="../../../../images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="../../../../about/">About</a></li>
+    
+    <li><a href="https://github.com/rstudio/blogdown">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/rstudio">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">6 min read</span>
+    
+
+    <h1 class="article-title">Star Wars Musical Ecology</h1>
+
+    
+    <span class="article-date">2017/07/26</span>
+    
+
+    <div class="article-content">
+      <div id="TOC">
+<ul>
+<li><a href="#introduction">Introduction</a><ul>
+<li><a href="#star-wars-oxygen">Star Wars Oxygen</a></li>
+<li><a href="#species-diversity">Species diversity</a></li>
+<li><a href="#star-wars-musical-ecology">Star Wars musical ecology</a></li>
+</ul></li>
+<li><a href="#the-data">The data</a></li>
+<li><a href="#analysis">Analysis</a><ul>
+<li><a href="#clustering">Clustering</a></li>
+<li><a href="#josts-d">Jost’s D</a></li>
+<li><a href="#nmds">NMDS</a></li>
+</ul></li>
+<li><a href="#conclusions">Conclusions</a></li>
+</ul>
+</div>
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<div id="star-wars-oxygen" class="section level3">
+<h3>Star Wars Oxygen</h3>
+<p>I love <a href="http://www.starwars.com/"><em>Star Wars.</em></a> I love the story telling and fantasy, but I especially love the music. John Williams is amazing. There was a podcast out there called <a href="http://www.rebelforceradio.com/star-wars-oxygen/"><em>Star Wars Oxygen</em></a> that covered the music of <em>Star Wars</em> and it was one of my favorite podcasts of all time. <a href="http://www.rebelforceradio.com/jimmy-mac/">Jimmy Mac</a> hosted while voice actor, musicician, and composer <a href="http://starwars.wikia.com/wiki/David_W._Collins">David W. Collins</a> broke down the scores for the films we know and love in a way that gave me a new appreciation for the films. I say there <em>was a podcast</em> because the podcast went dark following the release of Rogue One. After 38 wonderful volumes the podcast just wasn’t updated any more and we the fans have not heard anything about why they stopped producing the show.</p>
+</div>
+<div id="species-diversity" class="section level3">
+<h3>Species diversity</h3>
+<p>I also love statistics and ecology, which is the study of how organisms relate to each other and their environments. One exciting area of research deals with <strong>diversity.</strong> We can use statistics to figure out how many things live in a certain area and compare how different habitats are similar or different to one another. In order to conduct an analysis like this you need a “count matrix,” which has <strong>habitats</strong> on rows and <strong>species</strong> in columns. The cells are filled in with counts of how many of each <strong>species</strong> is found in each habitat. An example of a count matrix could look like this:</p>
+<table>
+<caption>Example of a count matrix where each row represents a habitat and each column represents a species. The cells are filled in with counts of the number of each species observed at each habitat.</caption>
+<thead>
+<tr class="header">
+<th align="center"></th>
+<th align="center"><em>Danaus plexippus</em></th>
+<th align="center"><em>Vanessa cardui</em></th>
+<th align="center"><em>Adelpha bredowii</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Donner Pass</td>
+<td align="center">5</td>
+<td align="center">6</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">Sierraville</td>
+<td align="center">4</td>
+<td align="center">2</td>
+<td align="center">2</td>
+</tr>
+<tr class="odd">
+<td align="center">Davis</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">3</td>
+</tr>
+</tbody>
+</table>
+<p>In this example, we can see that Donner Pass and Sierraville are similar to each other for two species. Also Davis and Sierraville are somewhat similar to each other because they have one species in common. If we were going to group these sites based on similarity, Donner Pass and Sierraville would be more similar to each other than to Davis.</p>
+<p>If we plot these relationships as a tree (after some statistical wankery) we see that Donner Pass and Sierraville appear close together with Davis far apart from them.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-1"></span>
+<img src="../../../../post/2017-07-26-star-wars-musical-ecology_files/figure-html/unnamed-chunk-1-1.svg" alt="Cluster plot of the toy example referred to above." width="672" />
+<p class="caption">
+Figure 1: Cluster plot of the toy example referred to above.
+</p>
+</div>
+<p>Please note here that I have created this page using <code>RMardown</code> in <code>RStudio</code>. All of the code and data used to create this post are freely available through this project’s <a href=""><code>github</code> repository</a>.</p>
+</div>
+<div id="star-wars-musical-ecology" class="section level3">
+<h3>Star Wars musical ecology</h3>
+<p>During the <em>Star Wars Oxygen</em> podcast, David W. Collins began what he called his “theme tracker,” which was essential a spreadsheet of the number of times a theme played per film.</p>
+<p>David W. Collins made a count matrix.</p>
+<p>We can apply statistics to <em>Star Wars</em>!!!! Oh happy day!!!</p>
+</div>
+</div>
+<div id="the-data" class="section level2">
+<h2>The data</h2>
+<p>To reverse enginerer the theme tracker I listened back through all of the <em>Star Wars Oxygen</em> episode with pencil and paper ready. I made note of how often a theme was played during a particular film every time Mr. Collins mentioned it. In some instances, I had to get a bit of help and I read the breakdowns and threads from these sites:</p>
+<ul>
+<li><a href="http://www.jwfan.com/">jwfan.com</a></li>
+<li><a href="http://starwars.wikia.com/wiki/Binary_Sunset"><em>Star Wars</em> wikia</a></li>
+<li><a href="http://boards.theforce.net/threads/force-theme-archive-just-how-many-tracks-is-the-force-theme-in-anyways.8458343/">TheForce.net</a></li>
+</ul>
+<p>This was especially helpful when going the <strong>AOTC</strong>, which had a lot of music edits.</p>
+<p>The data I ended up with, and which is used here had:</p>
+<ul>
+<li><strong>7</strong> rows - one for each film (“ecosystem”)</li>
+<li><strong>35</strong> columns - one for each theme (“species”)</li>
+</ul>
+<p>These data could be incomplete and are in need of improvement. I am particularly concerned by the lack of “rare” themes in the data set. Rare things are important in ecology. There are two ways you could contribute:</p>
+<ul>
+<li>Edit a <a href="https://docs.google.com/spreadsheets/d/1zN0OdNH8btShE3pk09FUaM7Z-UhRg9gZdgxe_IKWkfY/edit?usp=sharing">Google Doc</a></li>
+<li>Submit a PR through <a href="https://github.com/butterflyology/Star_Wars_musical_ecology"><code>github</code></a> (for those with technical skills).</li>
+<li>Email me through my <a href="https://butterflyology.github.io/">website</a></li>
+</ul>
+</div>
+<div id="analysis" class="section level2">
+<h2>Analysis</h2>
+<div id="clustering" class="section level3">
+<h3>Clustering</h3>
+<p>Now we’ll make a tree depicting the relationships between the seven films of the <em>Star Wars</em> saga just as we did in the above example.</p>
+<p>A prediction on the clustering analysis. The three original trilogy films will cluster together and the pre-quels will cluster together. I think that TFA will be more similar, musically, to the original trilogy than the pre-quels.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-2"></span>
+<img src="../../../../post/2017-07-26-star-wars-musical-ecology_files/figure-html/unnamed-chunk-2-1.svg" alt="Clustering of the Star Wars films based on the their musical theme counts." width="672" />
+<p class="caption">
+Figure 2: Clustering of the Star Wars films based on the their musical theme counts.
+</p>
+</div>
+</div>
+<div id="josts-d" class="section level3">
+<h3>Jost’s D</h3>
+<p>Here we count the number of different themes and consider how many different themes there are if we weight “rarity.”</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-3"></span>
+<img src="../../../../post/2017-07-26-star-wars-musical-ecology_files/figure-html/unnamed-chunk-3-1.svg" alt="Plot of the effective number of themes by Star Wars film" width="672" />
+<p class="caption">
+Figure 3: Plot of the effective number of themes by Star Wars film
+</p>
+</div>
+<p>To read this plot we look at the y (vertical) axis to see the number of themes. Along the x (horizontal) axis we have the different weights we place on “rarity.” A weight of 0 means that all themes are equal and it represents the actual number of themes present in each film. As we move right along the x axis we decrease the effect that a rarely occuring theme has on the y axis value. All the way to the right we hardly consider the effect that rare themes have on the effective number of themes.</p>
+<p>Note that Episode IV has the fewest number of themes. This is likely a result of incomplete data in the spreadsheet. E III has the most themes in our data set. One thing that appears evident from this analysis, is that all films have ~6 themes frequently used throughout.</p>
+<p>One last note of geekery. The colors from that plot were made with an <code>R</code> pacakge called <a href="https://github.com/butterflyology/spaceMovie"><code>spaceMovie</code></a> that uses colors from the <em>Star Wars</em> films.</p>
+</div>
+<div id="nmds" class="section level3">
+<h3>NMDS</h3>
+<p>Lastly, I want to employ a method callen <strong>NMDS</strong> (<strong>N</strong>on-<strong>M</strong>etric Multi<strong>D</strong>imensional <strong>S</strong>caling) which plots the locations of each “habitat” in ordination space. This doesn’t mean much except to say that similar things should be closer together than dissimilar things.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-4"></span>
+<img src="../../../../post/2017-07-26-star-wars-musical-ecology_files/figure-html/unnamed-chunk-4-1.svg" alt="NMDS Ordination plot of the 7 Star Wars films." width="672" />
+<p class="caption">
+Figure 4: NMDS Ordination plot of the 7 Star Wars films.
+</p>
+</div>
+<p>Here we see that the original trilogy films are closer to each other than they are to other films, and TFA is still closest to the original trilogy. The prequels are spread out a bit but one could easily draw a circle around those films without including any of the other films. <em>The Force Awakens</em> is out there by itself a bit but still closest to the original trilogy.</p>
+</div>
+</div>
+<div id="conclusions" class="section level2">
+<h2>Conclusions</h2>
+<p>I have three big take aways about the music of the <em>Star Wars</em> films from this exercise:</p>
+<ol style="list-style-type: decimal">
+<li>The original trilogy films are most similar to each other.</li>
+<li>The prequel films are most similar to each other.</li>
+<li><em>The Force Awakens</em> is more similar to the original trilogy than to the prequels.</li>
+</ol>
+<p>These results make a lot of sense to me. I interpret these results to mean that John Williams kept similar themes throughout each of the two trilogies, and that <em>The Force Awakens</em> is building off of the original trilogy, which is the most recent one relative to <em>TFA</em>.</p>
+</div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="../../../../index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="../../../../images/hugo-logo.png" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+    
+
+    
+  </body>
+</html>
+
