@@ -1,1 +1,11 @@
 .Rproj.user/
+blogdown
+data/
+layouts/
+themes/
+archetypes/
+config.toml	
+docs/
+blog.Rproj
+content/
+static/
